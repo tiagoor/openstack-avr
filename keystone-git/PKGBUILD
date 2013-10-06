@@ -1,4 +1,4 @@
-# Maintainer: Josh Chase <jcjoshuachase@gmail.com>
+# Maintainer: Anthony Cornehl <accornehl@gmail.com>
 
 _realpkgname=keystone
 pkgname=${_realpkgname}-git
