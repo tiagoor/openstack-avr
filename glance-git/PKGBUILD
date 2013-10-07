@@ -11,31 +11,33 @@ arch=("any")
 license=("custom")
 depends=("python2"
     "python2-anyjson"
-    "python2-argparse"
     "python2-boto"
     "python2-crypto"
     "python2-eventlet"
     "python2-jsonpointer"
-    "python2-glanceclient"
     "python2-greenlet"
     "python2-httplib2"
     "python2-iso8601"
-    "python2-keystoneclient"
     "python2-kombu"
     "python2-lxml"
     "python2-migrate"
+    "python2-oslo-config-git"
     "python2-passlib"
     "python2-paste"
     "python2-paste-deploy"
     "python2-pyopenssl"
     "python2-routes"
     "python2-sendfile"
+    "python2-six"
     "python2-sqlalchemy"
     "python2-warlock"
     "python2-webob"
     "python2-wsgiref"
     "python2-xattr")
-makedepends=("python2-setuptools", "git")
+makedepends=(
+    "python2-setuptools"
+    "git"
+)
 source=("$pkgname"::"git+https://github.com/openstack/${_realpkgname}")
 md5sums=("SKIP")
 
