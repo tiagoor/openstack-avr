@@ -1,20 +1,21 @@
 # Maintainer: Anthony Cornehl <accornehl@gmail.com>
+# https://github.com/twinshadow/openstack-aur
 
-_realpkgname=glance
-pkgname=${_realpkgname}-git
+_realpkgname="glance"
+pkgname="openstack-${_realpkgname}-git"
 pkgdesc="OpenStack image registry and delivery service"
 pkgver=0.0.0
 pkgrel=1
-conflicts=("${_realpkgname}")
-provides=("${_realpkgname}")
+conflicts=("openstack-${_realpkgname}")
+provides=("openstack-${_realpkgname}")
 arch=("any")
 license=("custom")
+url="https://github.com/openstack/${_realpkgname}"
 depends=("python2"
     "python2-anyjson"
     "python2-boto"
     "python2-crypto"
     "python2-eventlet"
-    "python2-jsonpointer"
     "python2-greenlet"
     "python2-httplib2"
     "python2-iso8601"
@@ -56,7 +57,7 @@ package() {
   cd "$pkgname"
   python2 setup.py install --root="$pkgdir" --optimize=1
 
-  install -dm600 "$pkgdir/etc/$pkgname"
-  install -Dm600 etc/* "$pkgdir/etc/$pkgname/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -dm600 "$pkgdir/etc/${_realpkgname}"
+  install -Dm600 etc/* "$pkgdir/etc/${_realpkgname}/"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/${_realpkgname}/LICENSE"
 }

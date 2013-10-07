@@ -1,36 +1,52 @@
-# Maintainer: Limao Luo <luolimao+AUR@gmail.com>
-# Contributor: Josh Chase <jcjoshuachase@gmail.com>
+# Maintainer: Anthony Cornehl <accornehl@gmail.com>
+# https://github.com/twinshadow/openstack-aur
 
-pkgname=nova
-_relname=havana
-pkgver=2013.2.b2
-pkgrel=1
+_realpkgname="nova"
+pkgname="openstack-${_realpkgname}-git"
 pkgdesc="OpenStack cloud computing fabric controller"
-arch=(any)
-url=https://launchpad.net/$pkgname
-license=(custom)
-depends=(glance python2-amqplib python2-babel python2-carrot python2-cheetah python2-daemon
-    python2-feedparser python2-gflags python2-lockfile python2-netaddr python2-novaclient
-    python2-paramiko python2-suds)
-makedepends=(python2-setuptools)
-source=($url/$_relname/$_relname-${pkgver: -1}/+download/$pkgname-$pkgver.tar.gz)
-sha256sums=('05b4783ed617c15899e4b1e38707c82e62988f4126d1ef95ec9b82d12d1f80d7')
-sha512sums=('16226eeaeaf33b279614dc827ffeb83de454e6b0b4a4be33f826b20dcba3ab467ac5aaeae84caa53f3961b04772b13a613c5bcca192036ec07f922c207c68060')
+pkgver=0.0.0
+pkgrel=1
+conflicts=("openstack-${_realpkgname}" "${_realpkgname}")
+provides=("openstack-${_realpkgname}")
+arch=("any")
+license=("custom")
+url="https://github.com/openstack/${_realpkgname}"
+depends=(
+    "openstack-glance-git"
+    "python2-babel"
+    "python2-kombu"
+    "python2-cheetah"
+    "python2-daemon"
+    "python2-feedparser"
+    "python2-gflags"
+    "python2-lockfile"
+    "python2-netaddr"
+    "python2-paramiko"
+    "python2-suds"
+)
+makedepends=(
+    "python2-setuptools"
+    "git"
+)
+source=("$pkgname"::"git+https://github.com/openstack/${_realpkgname}")
+md5sums=("SKIP")
 
-prepare() {
-    find $pkgname-$pkgver -type f -exec sed -ri 's:^#!/usr/bin/(env )?python$:&2:' '{}' \;
+pkgver() {
+  cd "$pkgname"
+  local ver="$(git describe --long)"
+  printf "%s" "${ver//-/.}"
 }
 
 build() {
-    cd $pkgname-$pkgver/
-    python2 setup.py build
+  cd "$pkgname"
+  python2 setup.py build
 }
 
 package() {
-    cd $pkgname-$pkgver/
-    python2 setup.py install --root="$pkgdir" --optimize=1
+  cd "$pkgname"
+  python2 setup.py install --root="$pkgdir" --optimize=1
 
-    install -d "$pkgdir"/etc/
-    cp -r etc/ "$pkgdir"/etc/$pkgname/
-    install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -dm600 "$pkgdir/etc/${_realpkgname}"
+  install -Dm600 etc/* "$pkgdir/etc/${_realpkgname}/"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/${_realpkgname}/LICENSE"
 }
