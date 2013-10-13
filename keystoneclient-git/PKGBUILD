@@ -3,7 +3,7 @@
 
 _realpkgname="keystoneclient"
 pkgname="python2-${_realpkgname}-git"
-pkgdesc="OpenStack Python bindings"
+pkgdesc="OpenStack Identity API Python bindings"
 pkgver=0.0.0
 pkgrel=1
 conflicts=("openstack-${_realpkgname}", "${_realpkgname}")
