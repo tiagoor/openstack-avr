@@ -32,7 +32,7 @@ depends=("python2"
 	 "python2-webob"
 )
 makedepends=(
-    "python2-distribute"
+    "python2-setuptools"
     "git"
 )
 source=("$pkgname"::"git+https://github.com/openstack/${_realpkgname}")
